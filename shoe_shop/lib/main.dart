@@ -19,3 +19,16 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+class MyTransitionDelegate extends TransitionDelegate {
+  @override
+  Iterable<RouteTransitionRecord> resolve(
+      {required List<RouteTransitionRecord> newPageRouteHistory,
+      required Map<RouteTransitionRecord?, RouteTransitionRecord>
+          locationToExitingPageRoute,
+      required Map<RouteTransitionRecord?, List<RouteTransitionRecord>>
+          pageRouteToPagelessRoutes}) {
+    // TODO: implement resolve
+    throw UnimplementedError();
+  }
+}

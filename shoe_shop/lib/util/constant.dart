@@ -1,6 +1,7 @@
 // ignore_for_file: constant_identifier_names
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class SHOESHOP {
   //TextStyles
@@ -17,5 +18,11 @@ class SHOESHOP {
     fontSize: 18,
     color: Colors.white,
     fontWeight: FontWeight.normal,
+  );
+
+  //SystemOverlay
+  static const SystemUiOverlayStyle SYSTEMOVERLAY = SystemUiOverlayStyle(
+    statusBarColor: Colors.white,
+    statusBarIconBrightness: Brightness.dark,
   );
 }
