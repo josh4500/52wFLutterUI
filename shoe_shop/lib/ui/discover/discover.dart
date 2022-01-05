@@ -135,11 +135,18 @@ class _DiscoverState extends State<Discover> {
                                   padEnds: false,
                                   scrollDirection: Axis.horizontal,
                                   itemBuilder: (_, index) {
-                                    return AnimatedShoeCard(
-                                      color: const Color(0xFF00939F),
-                                      width: constraint.maxWidth,
-                                      height: constraint.maxHeight,
-                                      isView: index == _index,
+                                    return Hero(
+                                      tag: "Discover$index",
+                                      child: Material(
+                                        type: MaterialType.transparency,
+                                        child: AnimatedShoeCard(
+                                          index: index,
+                                          color: const Color(0xFF00939F),
+                                          width: constraint.maxWidth,
+                                          height: constraint.maxHeight,
+                                          isView: index == _index,
+                                        ),
+                                      ),
                                     );
                                   },
                                   itemCount: 5,

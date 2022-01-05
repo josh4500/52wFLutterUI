@@ -6,14 +6,16 @@ import 'package:shoe_shop/util/constant.dart';
 import 'package:flutter/material.dart';
 
 class AnimatedShoeCard extends StatefulWidget {
-  const AnimatedShoeCard(
-      {Key? key,
-      this.color,
-      required this.width,
-      required this.height,
-      required this.isView,
-      this.nextCard})
-      : super(key: key);
+  const AnimatedShoeCard({
+    Key? key,
+    this.color,
+    required this.index,
+    required this.width,
+    required this.height,
+    required this.isView,
+    this.nextCard,
+  }) : super(key: key);
+  final int index;
   final Color? color;
   final double width;
   final double height;
@@ -33,7 +35,9 @@ class _AnimatedShoeCardState extends State<AnimatedShoeCard> {
     return GestureDetector(
       onTap: () {
         Navigator.push(
-            context, MaterialPageRoute(builder: (_) => ShoeDetails()));
+            context,
+            MaterialPageRoute(
+                builder: (_) => ShoeDetails(index: widget.index)));
       },
       child: AnimatedScale(
         duration: const Duration(milliseconds: 300),
@@ -50,56 +54,54 @@ class _AnimatedShoeCardState extends State<AnimatedShoeCard> {
                   alignment: Alignment.center,
                   clipBehavior: Clip.none,
                   children: [
-                    Transform(
+                    Container(
                       transform: Matrix4.identity()
                         ..setEntry(3, 2, 0.001)
                         ..rotateY(angle * -math.pi),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: widget.color,
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                        padding: const EdgeInsets.all(16.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              children: const [
-                                Text(
-                                  "Nike",
-                                  style: SHOESHOP.SHOECARD_TITLE,
-                                ),
-                                Spacer(),
-                                Icon(
-                                  Icons.favorite_outline,
+                      decoration: BoxDecoration(
+                        color: widget.color,
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: const [
+                              Text(
+                                "Nike",
+                                style: SHOESHOP.SHOECARD_TITLE,
+                              ),
+                              Spacer(),
+                              Icon(
+                                Icons.favorite_outline,
+                                color: Colors.white,
+                              ),
+                            ],
+                          ),
+                          const Text(
+                            "Air 720",
+                            style: SHOESHOP.SHOECARD_SHOENAME,
+                          ),
+                          const Text(
+                            "\$150.0",
+                            style: SHOESHOP.SHOECARD_SHOEPRICE,
+                          ),
+                          const Spacer(),
+                          InkWell(
+                            onTap: widget.nextCard,
+                            child: Container(
+                              alignment: Alignment.centerRight,
+                              child: const RotatedBox(
+                                quarterTurns: 2,
+                                child: Icon(
+                                  Icons.keyboard_backspace,
                                   color: Colors.white,
                                 ),
-                              ],
-                            ),
-                            const Text(
-                              "Air 720",
-                              style: SHOESHOP.SHOECARD_SHOENAME,
-                            ),
-                            const Text(
-                              "\$150.0",
-                              style: SHOESHOP.SHOECARD_SHOEPRICE,
-                            ),
-                            const Spacer(),
-                            InkWell(
-                              onTap: widget.nextCard,
-                              child: Container(
-                                alignment: Alignment.centerRight,
-                                child: const RotatedBox(
-                                  quarterTurns: 2,
-                                  child: Icon(
-                                    Icons.keyboard_backspace,
-                                    color: Colors.white,
-                                  ),
-                                ),
                               ),
-                            )
-                          ],
-                        ),
+                            ),
+                          )
+                        ],
                       ),
                     ),
                     // Positioned(
