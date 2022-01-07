@@ -332,7 +332,7 @@ class _ShoeDetailsState extends State<ShoeDetails> {
                     title: "Add to cart",
                     onTap: () {
                       Provider.of<CartProvider>(context, listen: false)
-                          .addItem(widget.product);
+                          .addItem(product: widget.product);
                     },
                   )
                 ],

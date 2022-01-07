@@ -59,8 +59,6 @@ class _AnimatedShoeCardState extends State<AnimatedShoeCard> {
         scale: widget.isView ? 1.0 : 0.9,
         child: Padding(
           padding: const EdgeInsets.all(12),
-          // width: width,
-          // height: height,
           child: TweenAnimationBuilder(
               duration: const Duration(milliseconds: 350),
               curve: Curves.bounceInOut,

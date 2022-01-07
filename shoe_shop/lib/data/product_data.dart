@@ -75,7 +75,7 @@ List<Product> nikeProducts = [
 
 List<Product> adidasProducts = [
   Product(
-    id: 1,
+    id: 8,
     name: "Nike Air Max",
     price: 200,
     image: "assets/images/nike.png",
@@ -85,7 +85,7 @@ List<Product> adidasProducts = [
     category: "Featured",
   ),
   Product(
-    id: 2,
+    id: 9,
     name: "Nike Air Max",
     price: 200,
     image: "assets/images/nike.png",
@@ -95,7 +95,7 @@ List<Product> adidasProducts = [
     category: "Featured",
   ),
   Product(
-    id: 3,
+    id: 10,
     name: "Nike Air Max",
     price: 200,
     image: "assets/images/nike.png",
@@ -105,7 +105,7 @@ List<Product> adidasProducts = [
     category: "Featured",
   ),
   Product(
-    id: 4,
+    id: 11,
     name: "Nike Air Max",
     price: 200,
     image: "assets/images/nike.png",
@@ -115,7 +115,7 @@ List<Product> adidasProducts = [
     category: "Featured",
   ),
   Product(
-    id: 5,
+    id: 12,
     name: "Nike Air Max",
     price: 200,
     image: "assets/images/nike.png",
@@ -125,7 +125,7 @@ List<Product> adidasProducts = [
     category: "Featured",
   ),
   Product(
-    id: 6,
+    id: 13,
     name: "Nike Air Max",
     price: 200,
     image: "assets/images/nike.png",
@@ -135,7 +135,7 @@ List<Product> adidasProducts = [
     category: "Featured",
   ),
   Product(
-    id: 7,
+    id: 14,
     name: "Nike Air Max",
     price: 200,
     image: "assets/images/nike.png",
@@ -148,7 +148,7 @@ List<Product> adidasProducts = [
 
 List<Product> jordanProducts = [
   Product(
-    id: 1,
+    id: 15,
     name: "Nike Air Max",
     price: 200,
     image: "assets/images/nike.png",
@@ -158,7 +158,7 @@ List<Product> jordanProducts = [
     category: "Featured",
   ),
   Product(
-    id: 2,
+    id: 16,
     name: "Nike Air Max",
     price: 200,
     image: "assets/images/nike.png",
@@ -168,7 +168,7 @@ List<Product> jordanProducts = [
     category: "Featured",
   ),
   Product(
-    id: 3,
+    id: 17,
     name: "Nike Air Max",
     price: 200,
     image: "assets/images/nike.png",
@@ -178,7 +178,7 @@ List<Product> jordanProducts = [
     category: "Featured",
   ),
   Product(
-    id: 4,
+    id: 18,
     name: "Nike Air Max",
     price: 200,
     image: "assets/images/nike.png",
@@ -188,7 +188,7 @@ List<Product> jordanProducts = [
     category: "Featured",
   ),
   Product(
-    id: 5,
+    id: 19,
     name: "Nike Air Max",
     price: 200,
     image: "assets/images/nike.png",
@@ -198,7 +198,7 @@ List<Product> jordanProducts = [
     category: "Featured",
   ),
   Product(
-    id: 6,
+    id: 20,
     name: "Nike Air Max",
     price: 200,
     image: "assets/images/nike.png",
@@ -208,7 +208,7 @@ List<Product> jordanProducts = [
     category: "Featured",
   ),
   Product(
-    id: 7,
+    id: 21,
     name: "Nike Air Max",
     price: 200,
     image: "assets/images/nike.png",
@@ -221,7 +221,7 @@ List<Product> jordanProducts = [
 
 List<Product> pumaProducts = [
   Product(
-    id: 1,
+    id: 22,
     name: "Nike Air Max",
     price: 200,
     image: "assets/images/nike.png",
@@ -231,7 +231,7 @@ List<Product> pumaProducts = [
     category: "Featured",
   ),
   Product(
-    id: 2,
+    id: 23,
     name: "Nike Air Max",
     price: 200,
     image: "assets/images/nike.png",
@@ -241,7 +241,7 @@ List<Product> pumaProducts = [
     category: "Featured",
   ),
   Product(
-    id: 3,
+    id: 24,
     name: "Nike Air Max",
     price: 200,
     image: "assets/images/nike.png",
@@ -251,7 +251,7 @@ List<Product> pumaProducts = [
     category: "Featured",
   ),
   Product(
-    id: 4,
+    id: 25,
     name: "Nike Air Max",
     price: 200,
     image: "assets/images/nike.png",
@@ -261,7 +261,7 @@ List<Product> pumaProducts = [
     category: "Featured",
   ),
   Product(
-    id: 5,
+    id: 26,
     name: "Nike Air Max",
     price: 200,
     image: "assets/images/nike.png",
@@ -271,7 +271,7 @@ List<Product> pumaProducts = [
     category: "Featured",
   ),
   Product(
-    id: 6,
+    id: 27,
     name: "Nike Air Max",
     price: 200,
     image: "assets/images/nike.png",
@@ -281,7 +281,7 @@ List<Product> pumaProducts = [
     category: "Featured",
   ),
   Product(
-    id: 7,
+    id: 28,
     name: "Nike Air Max",
     price: 200,
     image: "assets/images/nike.png",
@@ -294,7 +294,7 @@ List<Product> pumaProducts = [
 
 List<Product> reebokProducts = [
   Product(
-    id: 1,
+    id: 29,
     name: "Nike Air Max",
     price: 200,
     image: "assets/images/nike.png",
@@ -304,7 +304,7 @@ List<Product> reebokProducts = [
     category: "Featured",
   ),
   Product(
-    id: 2,
+    id: 30,
     name: "Nike Air Max",
     price: 200,
     image: "assets/images/nike.png",
@@ -314,7 +314,7 @@ List<Product> reebokProducts = [
     category: "Featured",
   ),
   Product(
-    id: 3,
+    id: 31,
     name: "Nike Air Max",
     price: 200,
     image: "assets/images/nike.png",
@@ -324,7 +324,7 @@ List<Product> reebokProducts = [
     category: "Featured",
   ),
   Product(
-    id: 4,
+    id: 32,
     name: "Nike Air Max",
     price: 200,
     image: "assets/images/nike.png",
@@ -334,7 +334,7 @@ List<Product> reebokProducts = [
     category: "Featured",
   ),
   Product(
-    id: 5,
+    id: 33,
     name: "Nike Air Max",
     price: 200,
     image: "assets/images/nike.png",
@@ -344,7 +344,7 @@ List<Product> reebokProducts = [
     category: "Featured",
   ),
   Product(
-    id: 6,
+    id: 34,
     name: "Nike Air Max",
     price: 200,
     image: "assets/images/nike.png",
@@ -354,7 +354,7 @@ List<Product> reebokProducts = [
     category: "Featured",
   ),
   Product(
-    id: 7,
+    id: 35,
     name: "Nike Air Max",
     price: 200,
     image: "assets/images/nike.png",
@@ -367,7 +367,7 @@ List<Product> reebokProducts = [
 
 List<Product> asicsProducts = [
   Product(
-    id: 1,
+    id: 36,
     name: "Nike Air Max",
     price: 200,
     image: "assets/images/nike.png",
@@ -377,7 +377,7 @@ List<Product> asicsProducts = [
     category: "Featured",
   ),
   Product(
-    id: 2,
+    id: 37,
     name: "Nike Air Max",
     price: 200,
     image: "assets/images/nike.png",
@@ -387,7 +387,7 @@ List<Product> asicsProducts = [
     category: "Featured",
   ),
   Product(
-    id: 3,
+    id: 38,
     name: "Nike Air Max",
     price: 200,
     image: "assets/images/nike.png",
@@ -397,7 +397,7 @@ List<Product> asicsProducts = [
     category: "Featured",
   ),
   Product(
-    id: 4,
+    id: 39,
     name: "Nike Air Max",
     price: 200,
     image: "assets/images/nike.png",
@@ -407,7 +407,7 @@ List<Product> asicsProducts = [
     category: "Featured",
   ),
   Product(
-    id: 5,
+    id: 40,
     name: "Nike Air Max",
     price: 200,
     image: "assets/images/nike.png",
@@ -417,7 +417,7 @@ List<Product> asicsProducts = [
     category: "Featured",
   ),
   Product(
-    id: 6,
+    id: 41,
     name: "Nike Air Max",
     price: 200,
     image: "assets/images/nike.png",
@@ -427,7 +427,7 @@ List<Product> asicsProducts = [
     category: "Featured",
   ),
   Product(
-    id: 7,
+    id: 42,
     name: "Nike Air Max",
     price: 200,
     image: "assets/images/nike.png",

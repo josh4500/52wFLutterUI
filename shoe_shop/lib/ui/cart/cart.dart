@@ -65,7 +65,7 @@ class _CartState extends State<Cart> {
                     Consumer<CartProvider>(
                         builder: (context, cartProvider, child) {
                       return Text(
-                        'Total ${cartProvider.itemCount} items',
+                        'Total ${cartProvider.totalItemCount} items',
                         style: const TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.bold,
@@ -87,7 +87,10 @@ class _CartState extends State<Cart> {
                       ? ListView.builder(
                           physics: const BouncingScrollPhysics(),
                           itemBuilder: (_, index) {
-                            return const CartItemWidget();
+                            return CartItemWidget(
+                              index: index,
+                              itemProduct: cartProvider.items[index],
+                            );
                           },
                           itemCount: cartProvider.itemCount,
                         )

@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shoe_shop/model/cart_item.dart';
+import 'package:shoe_shop/provider/cart_provider.dart';
 
 class CartItemWidget extends StatefulWidget {
-  const CartItemWidget({Key? key}) : super(key: key);
+  const CartItemWidget(
+      {Key? key, required this.index, required this.itemProduct})
+      : super(key: key);
+  final int index;
+  final CartItem itemProduct;
 
   @override
   _CartItemWidgetState createState() => _CartItemWidgetState();
@@ -45,70 +52,74 @@ class _CartItemWidgetState extends State<CartItemWidget> {
             flex: 4,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'Air Jordan 5 Lancy JSP',
-                    style: TextStyle(
-                      fontSize: 16,
+              child: Consumer<CartProvider>(builder: (context, cartItems, _) {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      cartItems.items[widget.index].title,
+                      style: const TextStyle(
+                        fontSize: 16,
+                      ),
                     ),
-                  ),
-                  const Text(
-                    '\$190.00',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
+                    Text(
+                      "\$${cartItems.items[widget.index].price * cartItems.items[widget.index].quantity}",
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: Row(
-                      children: [
-                        Container(
-                          decoration: const BoxDecoration(
-                            color: Color(0xFFCBD1D8),
-                            borderRadius: BorderRadius.all(Radius.circular(8)),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      child: Row(
+                        children: [
+                          Container(
+                            decoration: const BoxDecoration(
+                              color: Color(0xFFCBD1D8),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(8)),
+                            ),
+                            child: IconButton(
+                              visualDensity: VisualDensity.compact,
+                              padding: EdgeInsets.zero,
+                              icon: const Icon(Icons.remove),
+                              onPressed: () => Provider.of<CartProvider>(
+                                      context,
+                                      listen: false)
+                                  .removeItem(widget.index),
+                            ),
                           ),
-                          child: IconButton(
-                            visualDensity: VisualDensity.compact,
-                            padding: EdgeInsets.zero,
-                            icon: const Icon(Icons.remove),
-                            onPressed: () {},
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 16.0),
+                            child: Consumer<CartProvider>(
+                                builder: (context, cartItem, _) {
+                              return Text(
+                                  '${cartItem.items[widget.index].quantity}');
+                            }),
                           ),
-                        ),
-                        const Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 16.0),
-                          child: Text('1'),
-                        ),
-                        Container(
-                          decoration: const BoxDecoration(
-                            color: Color(0xFFCBD1D8),
-                            borderRadius: BorderRadius.all(Radius.circular(8)),
+                          Container(
+                            decoration: const BoxDecoration(
+                              color: Color(0xFFCBD1D8),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(8)),
+                            ),
+                            child: IconButton(
+                              visualDensity: VisualDensity.compact,
+                              padding: EdgeInsets.zero,
+                              icon: const Icon(Icons.add),
+                              onPressed: () => Provider.of<CartProvider>(
+                                      context,
+                                      listen: false)
+                                  .addItem(cartItem: widget.itemProduct),
+                            ),
                           ),
-                          child: IconButton(
-                            visualDensity: VisualDensity.compact,
-                            padding: EdgeInsets.zero,
-                            icon: const Icon(Icons.add),
-                            onPressed: () {
-                              // Provider.of<CartProvider>(context, listen: false)
-                              //     .addItem(
-                              //   CartItem(
-                              //     id: '1',
-                              //     name: 'Air Jordan 5 Lancy JSP',
-                              //     price: 190,
-                              //     imageUrl:
-                              //         'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
-                              //   ),
-                              // );
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                  )
-                ],
-              ),
+                        ],
+                      ),
+                    )
+                  ],
+                );
+              }),
             ),
           )
         ],

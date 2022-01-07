@@ -1,7 +1,7 @@
 class CartItem {
   final int id;
   final String title;
-  final int quantity;
+  int quantity;
   final double price;
   CartItem({
     required this.id,
