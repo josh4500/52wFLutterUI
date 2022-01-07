@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shoe_shop/data/product_data.dart';
 import 'package:shoe_shop/model/product.dart';
 import 'package:shoe_shop/util/constant.dart';
 import 'package:shoe_shop/widget/discover/action_button.dart';
@@ -14,17 +15,8 @@ class Discover extends StatefulWidget {
 
 class _DiscoverState extends State<Discover> {
   final List<String> _filters = ["Upcoming", "Featured", "New"];
-  final List<Product> _products = [
-    Product(
-        id: 1,
-        name: "Nike Air Max",
-        price: 200,
-        image: "assets/images/nike.png",
-        description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-        brand: "Nike",
-        category: "Featured"),
-  ];
+  List<Product> _products = [];
+  String _selectedBrandName = "Nike";
 
   // final List<String> _shoes = [
   //   "assets/images/shoe1.png",
@@ -39,6 +31,7 @@ class _DiscoverState extends State<Discover> {
     Color(0xFF3B65BF),
     Color(0xFFFFCD00),
     Color(0xFF00939F),
+    Color(0xFFA0939F),
   ];
   late final PageController _pageController;
   int _selectedFilter = 1;
@@ -49,6 +42,7 @@ class _DiscoverState extends State<Discover> {
     _pageController = PageController(
       viewportFraction: 0.8,
     );
+    _products = getProducts(brand: "Nike");
   }
 
   @override
@@ -84,26 +78,33 @@ class _DiscoverState extends State<Discover> {
               flex: 1,
               child: Container(
                 color: Colors.white,
-                child: const TabBar(
-                  tabs: [
-                    Text("Nike"),
-                    Text("Addidas"),
-                    Text("Jordan"),
-                    Text("Puma"),
-                    Text("Addidas"),
-                    Text("Jordan"),
-                  ],
-                  indicator: BoxDecoration(),
+                child: TabBar(
+                  tabs: List.generate(
+                    brandNames.length,
+                    (index) => Text(brandNames[index]),
+                  ),
+                  indicator: const BoxDecoration(),
                   isScrollable: true,
-                  unselectedLabelStyle: TextStyle(
+                  unselectedLabelStyle: const TextStyle(
                     color: Color(0xFFA0A0A0),
                   ),
                   labelColor: Colors.black,
-                  labelStyle: TextStyle(
+                  labelStyle: const TextStyle(
                     color: Color(0xFFA0A0A0),
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                   ),
+                  onTap: (index) {
+                    setState(() {
+                      _products = getProducts(brand: brandNames[index]);
+                      _selectedBrandName = brandNames[index];
+                      _pageController.animateToPage(
+                        0,
+                        duration: const Duration(milliseconds: 500),
+                        curve: Curves.easeInOut,
+                      );
+                    });
+                  },
                 ),
               ),
             ),
@@ -127,6 +128,10 @@ class _DiscoverState extends State<Discover> {
                                 (index) => GestureDetector(
                                   onTap: () => setState(() {
                                     _selectedFilter = index;
+                                    _products = getProducts(
+                                      category: _filters[index],
+                                      brand: _selectedBrandName,
+                                    );
                                   }),
                                   child: RotatedBox(
                                     quarterTurns: 3,

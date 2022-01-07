@@ -90,7 +90,18 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                             visualDensity: VisualDensity.compact,
                             padding: EdgeInsets.zero,
                             icon: const Icon(Icons.add),
-                            onPressed: () {},
+                            onPressed: () {
+                              // Provider.of<CartProvider>(context, listen: false)
+                              //     .addItem(
+                              //   CartItem(
+                              //     id: '1',
+                              //     name: 'Air Jordan 5 Lancy JSP',
+                              //     price: 190,
+                              //     imageUrl:
+                              //         'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
+                              //   ),
+                              // );
+                            },
                           ),
                         ),
                       ],

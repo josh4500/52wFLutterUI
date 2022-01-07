@@ -37,7 +37,7 @@ class CartProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void removeItemById(String id) {
+  void removeItemById(int id) {
     _items.removeWhere((item) => item.id == id);
     notifyListeners();
   }

@@ -30,7 +30,13 @@ class _HomePageState extends State<HomePage> {
             const Discover(),
             Container(),
             Container(),
-            const Cart(),
+            Cart(
+              homeCallback: () {
+                setState(() {
+                  _selectedIndex = 0;
+                });
+              },
+            ),
           ],
         ),
         bottomNavigationBar: Theme(

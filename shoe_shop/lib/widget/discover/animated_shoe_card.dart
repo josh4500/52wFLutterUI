@@ -2,7 +2,6 @@ import 'dart:math' as math;
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 import 'package:shoe_shop/model/product.dart';
-import 'package:shoe_shop/provider/cart_provider.dart';
 import 'package:shoe_shop/provider/liked_provider.dart';
 import 'package:shoe_shop/ui/shoe_details/shoe_details.dart';
 import 'package:shoe_shop/util/constant.dart';
@@ -64,6 +63,7 @@ class _AnimatedShoeCardState extends State<AnimatedShoeCard> {
           // height: height,
           child: TweenAnimationBuilder(
               duration: const Duration(milliseconds: 350),
+              curve: Curves.bounceInOut,
               tween: Tween<double>(begin: 0.05, end: widget.isView ? 0 : -0.1),
               builder: (context, double angle, _) {
                 return Stack(
@@ -73,7 +73,7 @@ class _AnimatedShoeCardState extends State<AnimatedShoeCard> {
                     Container(
                       transform: Matrix4.identity()
                         ..setEntry(3, 2, 0.001)
-                        ..rotateY(angle * -math.pi),
+                        ..rotateY(angle * math.pi),
                       decoration: BoxDecoration(
                         color: widget.color,
                         borderRadius: BorderRadius.circular(16),
