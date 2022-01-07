@@ -1,21 +1,27 @@
 import 'package:flutter/widgets.dart';
+import 'package:shoe_shop/model/product.dart';
 
 class LikedProvider extends ChangeNotifier {
-  final List<String> _liked = [];
+  final List<int> _liked = [];
 
-  List<String> get liked => _liked;
+  List<int> get liked => _liked;
 
-  void addLiked(String id) {
+  void addLiked(int id) {
     _liked.add(id);
     notifyListeners();
   }
 
-  void removeLiked(String id) {
+  void toggleLiked(Product product) {
+    isLiked(product.id) ? removeLiked(product.id) : addLiked(product.id);
+    notifyListeners();
+  }
+
+  void removeLiked(int id) {
     _liked.remove(id);
     notifyListeners();
   }
 
-  bool isLiked(String id) {
+  bool isLiked(int id) {
     return _liked.contains(id);
   }
 }

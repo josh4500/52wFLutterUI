@@ -1,5 +1,9 @@
 import 'dart:math' as math;
 import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
+import 'package:shoe_shop/model/product.dart';
+import 'package:shoe_shop/provider/cart_provider.dart';
+import 'package:shoe_shop/provider/liked_provider.dart';
 import 'package:shoe_shop/ui/shoe_details/shoe_details.dart';
 import 'package:shoe_shop/util/constant.dart';
 
@@ -14,6 +18,7 @@ class AnimatedShoeCard extends StatefulWidget {
     required this.height,
     required this.isView,
     required this.child,
+    required this.product,
     this.showNext = true,
     this.nextCard,
   }) : super(key: key);
@@ -25,6 +30,7 @@ class AnimatedShoeCard extends StatefulWidget {
   final bool showNext;
   final VoidCallback? nextCard;
   final Widget child;
+  final Product product;
 
   @override
   _AnimatedShoeCardState createState() => _AnimatedShoeCardState();
@@ -44,6 +50,7 @@ class _AnimatedShoeCardState extends State<AnimatedShoeCard> {
             builder: (_) => ShoeDetails(
               index: widget.index,
               color: widget.color,
+              product: widget.product,
             ),
           ),
         );
@@ -76,24 +83,46 @@ class _AnimatedShoeCardState extends State<AnimatedShoeCard> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Row(
-                            children: const [
+                            children: [
                               Text(
-                                "Nike",
+                                widget.product.brand,
                                 style: SHOESHOP.SHOECARD_TITLE,
                               ),
-                              Spacer(),
-                              Icon(
-                                Icons.favorite_outline,
-                                color: Colors.white,
+                              const Spacer(),
+                              Consumer<LikedProvider>(
+                                builder: (context, liked, _) {
+                                  return GestureDetector(
+                                    onTap: () {
+                                      liked.isLiked(widget.product.id)
+                                          ? liked.removeLiked(widget.product.id)
+                                          : liked.addLiked(widget.product.id);
+                                    },
+                                    child: AnimatedSwitcher(
+                                      duration:
+                                          const Duration(milliseconds: 300),
+                                      child: liked.isLiked(widget.product.id)
+                                          ? const Icon(
+                                              Icons.favorite,
+                                              key: Key('liked'),
+                                              color: Colors.white,
+                                            )
+                                          : const Icon(
+                                              Icons.favorite_outline,
+                                              key: Key('not_liked'),
+                                              color: Colors.white,
+                                            ),
+                                    ),
+                                  );
+                                },
                               ),
                             ],
                           ),
-                          const Text(
-                            "Air 720",
+                          Text(
+                            widget.product.name,
                             style: SHOESHOP.SHOECARD_SHOENAME,
                           ),
-                          const Text(
-                            "\$150.0",
+                          Text(
+                            "\$${widget.product.price}",
                             style: SHOESHOP.SHOECARD_SHOEPRICE,
                           ),
                           const Spacer(),

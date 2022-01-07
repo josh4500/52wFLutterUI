@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shoe_shop/model/product.dart';
 import 'package:shoe_shop/util/constant.dart';
 import 'package:shoe_shop/widget/discover/action_button.dart';
 import 'package:shoe_shop/widget/discover/animated_shoe_card.dart';
@@ -13,6 +14,17 @@ class Discover extends StatefulWidget {
 
 class _DiscoverState extends State<Discover> {
   final List<String> _filters = ["Upcoming", "Featured", "New"];
+  final List<Product> _products = [
+    Product(
+        id: 1,
+        name: "Nike Air Max",
+        price: 200,
+        image: "assets/images/nike.png",
+        description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        brand: "Nike",
+        category: "Featured"),
+  ];
 
   // final List<String> _shoes = [
   //   "assets/images/shoe1.png",
@@ -154,15 +166,15 @@ class _DiscoverState extends State<Discover> {
                                         width: constraint.maxWidth,
                                         height: constraint.maxHeight,
                                         isView: index <= _index,
-                                        child: Image.asset(
-                                          "assets/images/nike.png",
-                                        ),
-                                        showNext: index != _colors.length - 1,
+                                        child:
+                                            Image.asset(_products[index].image),
+                                        showNext: index != _products.length - 1,
+                                        product: _products[index],
                                       ),
                                     ),
                                   );
                                 },
-                                itemCount: _colors.length,
+                                itemCount: _products.length,
                                 onPageChanged: (index) {
                                   setState(() {
                                     _index = index;
@@ -192,9 +204,12 @@ class _DiscoverState extends State<Discover> {
                                 ),
                               ),
                               const Spacer(),
-                              IconButton(
-                                onPressed: () {},
-                                icon: const Icon(Icons.keyboard_backspace),
+                              RotatedBox(
+                                quarterTurns: 2,
+                                child: IconButton(
+                                  onPressed: () {},
+                                  icon: const Icon(Icons.keyboard_backspace),
+                                ),
                               ),
                             ],
                           ),

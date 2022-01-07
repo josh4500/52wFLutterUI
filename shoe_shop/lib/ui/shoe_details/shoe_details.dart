@@ -4,16 +4,22 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:shoe_shop/model/product.dart';
 import 'package:shoe_shop/provider/cart_provider.dart';
+import 'package:shoe_shop/provider/liked_provider.dart';
 import 'package:shoe_shop/util/constant.dart';
 import 'package:shoe_shop/widget/shared/custom_button.dart';
 import 'package:shoe_shop/widget/shoe_details/shoe_slideshow.dart';
 
 class ShoeDetails extends StatefulWidget {
-  const ShoeDetails({Key? key, required this.index, required this.color})
+  const ShoeDetails(
+      {Key? key,
+      required this.index,
+      required this.color,
+      required this.product})
       : super(key: key);
 
   final int index;
   final Color color;
+  final Product product;
 
   @override
   _ShoeDetailsState createState() => _ShoeDetailsState();
@@ -64,9 +70,26 @@ class _ShoeDetailsState extends State<ShoeDetails> {
                     ),
                   ],
                 ),
-                child: IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.favorite_outline_rounded),
+                child: Consumer<LikedProvider>(
+                  builder: (context, liked, _) {
+                    return IconButton(
+                      onPressed: () => liked.toggleLiked(widget.product),
+                      icon: AnimatedSwitcher(
+                        duration: const Duration(milliseconds: 300),
+                        child: liked.isLiked(widget.product.id)
+                            ? const Icon(
+                                Icons.favorite,
+                                key: Key('liked'),
+                                color: Colors.white,
+                              )
+                            : const Icon(
+                                Icons.favorite_outline,
+                                key: Key('not_liked'),
+                                color: Colors.white,
+                              ),
+                      ),
+                    );
+                  },
                 ),
               ),
             )
@@ -308,19 +331,8 @@ class _ShoeDetailsState extends State<ShoeDetails> {
                   CustomButton(
                     title: "Add to cart",
                     onTap: () {
-                      Provider.of<CartProvider>(context, listen: false).addItem(
-                        Product(
-                          id: "A",
-                          name: "Nike Air Max",
-                          description:
-                              "The Nike Air-Max 270 is amps up an icon with a hug Max Air unit"
-                              "for coshioning under every step. It features a stretchy inner sleeves"
-                              "foa a snug, sock-like fit.",
-                          price: 150.0,
-                          category: "",
-                          image: "assets/images/nike.png",
-                        ),
-                      );
+                      Provider.of<CartProvider>(context, listen: false)
+                          .addItem(widget.product);
                     },
                   )
                 ],

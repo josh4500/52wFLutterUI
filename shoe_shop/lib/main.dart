@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shoe_shop/provider/cart_provider.dart';
+import 'package:shoe_shop/provider/liked_provider.dart';
 
 import 'ui/homepage/homepage.dart';
 
@@ -13,8 +14,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => CartProvider(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => CartProvider()),
+        ChangeNotifierProvider(create: (context) => LikedProvider()),
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
