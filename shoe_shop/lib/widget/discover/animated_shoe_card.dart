@@ -8,19 +8,23 @@ import 'package:flutter/material.dart';
 class AnimatedShoeCard extends StatefulWidget {
   const AnimatedShoeCard({
     Key? key,
-    this.color,
+    required this.color,
     required this.index,
     required this.width,
     required this.height,
     required this.isView,
+    required this.child,
+    this.showNext = true,
     this.nextCard,
   }) : super(key: key);
   final int index;
-  final Color? color;
+  final Color color;
   final double width;
   final double height;
   final bool isView;
+  final bool showNext;
   final VoidCallback? nextCard;
+  final Widget child;
 
   @override
   _AnimatedShoeCardState createState() => _AnimatedShoeCardState();
@@ -35,9 +39,14 @@ class _AnimatedShoeCardState extends State<AnimatedShoeCard> {
     return GestureDetector(
       onTap: () {
         Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (_) => ShoeDetails(index: widget.index)));
+          context,
+          MaterialPageRoute(
+            builder: (_) => ShoeDetails(
+              index: widget.index,
+              color: widget.color,
+            ),
+          ),
+        );
       },
       child: AnimatedScale(
         duration: const Duration(milliseconds: 300),
@@ -88,19 +97,20 @@ class _AnimatedShoeCardState extends State<AnimatedShoeCard> {
                             style: SHOESHOP.SHOECARD_SHOEPRICE,
                           ),
                           const Spacer(),
-                          InkWell(
-                            onTap: widget.nextCard,
-                            child: Container(
-                              alignment: Alignment.centerRight,
-                              child: const RotatedBox(
-                                quarterTurns: 2,
-                                child: Icon(
-                                  Icons.keyboard_backspace,
-                                  color: Colors.white,
+                          if (widget.showNext)
+                            InkWell(
+                              onTap: widget.nextCard,
+                              child: Container(
+                                alignment: Alignment.centerRight,
+                                child: const RotatedBox(
+                                  quarterTurns: 2,
+                                  child: Icon(
+                                    Icons.keyboard_backspace,
+                                    color: Colors.white,
+                                  ),
                                 ),
                               ),
-                            ),
-                          )
+                            )
                         ],
                       ),
                     ),
@@ -132,7 +142,7 @@ class _AnimatedShoeCardState extends State<AnimatedShoeCard> {
                           angle: -0.3,
                           child: SizedBox(
                             width: width * 0.8,
-                            child: Image.asset("assets/images/nike.png"),
+                            child: widget.child,
                           ),
                         ),
                       ),

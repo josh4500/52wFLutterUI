@@ -8,6 +8,7 @@ class MoreShoeCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PageView.builder(
+      physics: const BouncingScrollPhysics(),
       controller: PageController(viewportFraction: 0.5),
       padEnds: false,
       itemBuilder: (_, index) {
@@ -28,37 +29,27 @@ class MoreShoeCard extends StatelessWidget {
             ),
             child: Stack(
               children: [
-                Column(
-                  children: [
-                    Expanded(
-                      flex: 8,
-                      child: Image.asset(
-                        "assets/images/nike.png",
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: const [
+                      Text(
+                        "NIKE AIR-MAX",
+                        style: TextStyle(
+                          fontSize: 11,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
-                    ),
-                    Expanded(
-                      flex: 2,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: const [
-                          Text(
-                            "NIKE AIR-MAX",
-                            style: TextStyle(
-                              fontSize: 11,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          Text(
-                            "\$150.00",
-                            style: TextStyle(
-                              fontSize: 11,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ],
+                      Text(
+                        "\$150.00",
+                        style: TextStyle(
+                          fontSize: 11,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
-                    )
-                  ],
+                    ],
+                  ),
                 ),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -85,6 +76,11 @@ class MoreShoeCard extends StatelessWidget {
                       Icons.favorite_outline_outlined,
                     )
                   ],
+                ),
+                Center(
+                  child: Image.asset(
+                    "assets/images/nike.png",
+                  ),
                 ),
               ],
             ),
