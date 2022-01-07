@@ -1,13 +1,13 @@
 class Product {
+  final int id;
   final String name;
-  final String description;
   final String brand;
+  final String description;
   final String image;
   final double price;
   final String category;
-  final int id;
   final List<double>? ukSize;
-  final List<int>? uSSize;
+  final List<int>? usSize;
 
   Product({
     required this.name,
@@ -18,6 +18,6 @@ class Product {
     required this.category,
     required this.id,
     this.ukSize,
-    this.uSSize,
+    this.usSize,
   });
 }
