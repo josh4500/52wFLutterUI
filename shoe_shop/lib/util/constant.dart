@@ -24,5 +24,6 @@ class SHOESHOP {
   static const SystemUiOverlayStyle SYSTEMOVERLAY = SystemUiOverlayStyle(
     statusBarColor: Colors.white,
     statusBarIconBrightness: Brightness.dark,
+    systemNavigationBarColor: Colors.white,
   );
 }

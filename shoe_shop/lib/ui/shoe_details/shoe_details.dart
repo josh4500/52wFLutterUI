@@ -1,11 +1,19 @@
+import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+import 'package:shoe_shop/model/product.dart';
+import 'package:shoe_shop/provider/cart_provider.dart';
 import 'package:shoe_shop/util/constant.dart';
+import 'package:shoe_shop/widget/shared/custom_button.dart';
+import 'package:shoe_shop/widget/shoe_details/shoe_slideshow.dart';
 
 class ShoeDetails extends StatefulWidget {
-  const ShoeDetails({Key? key, required this.index}) : super(key: key);
+  const ShoeDetails({Key? key, required this.index, required this.color})
+      : super(key: key);
 
   final int index;
+  final Color color;
 
   @override
   _ShoeDetailsState createState() => _ShoeDetailsState();
@@ -16,8 +24,6 @@ class _ShoeDetailsState extends State<ShoeDetails> {
   final List<int> _usShoeSize = [38, 39, 40, 41, 42];
 
   bool _isUk = true;
-  bool _scaleButton = false;
-  bool _willStopScale = false;
   @override
   Widget build(BuildContext context) {
     return AnnotatedRegion<SystemUiOverlayStyle>(
@@ -28,12 +34,13 @@ class _ShoeDetailsState extends State<ShoeDetails> {
       ),
       child: Scaffold(
         backgroundColor: const Color(0xFFFAFAFA),
+        extendBodyBehindAppBar: true,
         appBar: AppBar(
           elevation: 0.0,
-          backgroundColor: Colors.cyan,
+          backgroundColor: Colors.transparent,
           systemOverlayStyle: SHOESHOP.SYSTEMOVERLAY.copyWith(
-            statusBarColor: Colors.cyan,
-            statusBarBrightness: Brightness.light,
+            statusBarColor: widget.color,
+            statusBarIconBrightness: Brightness.light,
             systemNavigationBarColor: Colors.white,
             systemNavigationBarIconBrightness: Brightness.dark,
           ),
@@ -46,14 +53,14 @@ class _ShoeDetailsState extends State<ShoeDetails> {
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: Container(
                 decoration: BoxDecoration(
-                  color: Colors.cyan,
+                  color: widget.color,
                   shape: BoxShape.circle,
                   boxShadow: [
                     BoxShadow(
                       color: Colors.black.withOpacity(0.1),
                       blurRadius: 1.0,
                       spreadRadius: 0.0,
-                      offset: const Offset(0.0, 1.0),
+                      offset: const Offset(2.0, 1.0),
                     ),
                   ],
                 ),
@@ -68,46 +75,65 @@ class _ShoeDetailsState extends State<ShoeDetails> {
         body: Column(
           children: [
             Expanded(
-              child: Column(
+              flex: 4,
+              child: Stack(
+                fit: StackFit.expand,
+                alignment: Alignment.bottomCenter,
                 children: [
-                  Expanded(
-                    flex: 4,
-                    child: Hero(
-                      tag: "Discover${widget.index}",
-                      transitionOnUserGestures: true,
-                      child: Material(
-                        type: MaterialType.transparency,
-                        child: ClipPath(
-                          clipper: CustomShoeDetailsClipper(),
-                          child: Container(
-                            decoration: const BoxDecoration(
-                              color: Colors.cyan,
+                  Column(
+                    children: [
+                      Expanded(
+                        flex: 5,
+                        child: Hero(
+                          tag: "Discover${widget.index}",
+                          transitionOnUserGestures: true,
+                          child: Material(
+                            type: MaterialType.transparency,
+                            child: ClipPath(
+                              clipper: CustomShoeDetailsClipper(),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: widget.color,
+                                ),
+                              ),
                             ),
                           ),
                         ),
                       ),
+                      const Expanded(
+                        child: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 8.0),
+                            child: ShoeDisplaySlideShow()),
+                      )
+                    ],
+                  ),
+                  Align(
+                    alignment: Alignment.lerp(
+                        Alignment.bottomCenter, Alignment.topCenter, 0.15)!,
+                    child: Hero(
+                      tag: "Shoe${widget.index}",
+                      child: Container(
+                        padding: const EdgeInsets.all(32.0),
+                        transform: Matrix4.identity()
+                          ..setEntry(3, 2, 0.001)
+                          ..rotateZ(-0.05 * math.pi)
+                          ..scale(0.9),
+                        child: Image.asset("assets/images/nike.png"),
+                      ),
                     ),
                   ),
-                  Expanded(
-                    child: Row(children: [
-                      Expanded(
-                        child: Container(
-                            // color: Colors.red,
-                            ),
-                      )
-                    ]),
-                  )
                 ],
               ),
             ),
             Expanded(
+              flex: 3,
               child: Column(
                 children: [
                   const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 8.0),
                     child: Divider(
                       color: Colors.grey,
-                      thickness: 1.0,
+                      thickness: 1.5,
                     ),
                   ),
                   Padding(
@@ -252,7 +278,8 @@ class _ShoeDetailsState extends State<ShoeDetails> {
                                   child: Container(
                                     alignment: Alignment.center,
                                     padding: const EdgeInsets.symmetric(
-                                        horizontal: 24, vertical: 10.0),
+                                      horizontal: 24,
+                                    ),
                                     decoration: BoxDecoration(
                                       border: Border.all(
                                         color: Colors.grey,
@@ -278,56 +305,24 @@ class _ShoeDetailsState extends State<ShoeDetails> {
                       ),
                     ),
                   ),
-                  Container(
-                    padding: const EdgeInsets.all(8.0),
-                    width: double.infinity,
-                    child: AnimatedScale(
-                      duration: const Duration(milliseconds: 500),
-                      scale: _scaleButton
-                          ? _willStopScale
-                              ? 1
-                              : 0.9
-                          : 1.0,
-                      onEnd: () {
-                        if (!_willStopScale) {
-                          setState(() {
-                            _willStopScale = true;
-                          });
-                        }
-                      },
-                      curve: Curves.easeInOut,
-                      alignment: Alignment.center,
-                      child: TextButton(
-                        onPressed: () {
-                          setState(() {
-                            _scaleButton = !_scaleButton;
-                            _willStopScale = false;
-                          });
-                        },
-                        child: const Text("Add to Cart",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold)),
-                        style: ButtonStyle(
-                          maximumSize: MaterialStateProperty.all(
-                            const Size.fromHeight(50),
-                          ),
-                          backgroundColor: MaterialStateProperty.all<Color>(
-                            const Color(0xFFEA2E57),
-                          ),
-                          foregroundColor: MaterialStateProperty.all<Color>(
-                            Colors.white,
-                          ),
-                          padding: MaterialStateProperty.all<EdgeInsets>(
-                            const EdgeInsets.symmetric(
-                              horizontal: 16.0,
-                              vertical: 12.0,
-                            ),
-                          ),
+                  CustomButton(
+                    title: "Add to cart",
+                    onTap: () {
+                      Provider.of<CartProvider>(context, listen: false).addItem(
+                        Product(
+                          id: "A",
+                          name: "Nike Air Max",
+                          description:
+                              "The Nike Air-Max 270 is amps up an icon with a hug Max Air unit"
+                              "for coshioning under every step. It features a stretchy inner sleeves"
+                              "foa a snug, sock-like fit.",
+                          price: 150.0,
+                          category: "",
+                          image: "assets/images/nike.png",
                         ),
-                      ),
-                    ),
-                  ),
+                      );
+                    },
+                  )
                 ],
               ),
             )
@@ -351,7 +346,7 @@ class CustomShoeDetailsClipper extends CustomClipper<Path> {
     path.lineTo(size.width, 0);
     path.addOval(
       Rect.fromCircle(
-        center: Offset(size.width * 0.7, -(size.height * 0.65)),
+        center: Offset(size.width * 0.7, -(size.height * 0.6)),
         radius: size.height * 1.5,
       ),
     );
